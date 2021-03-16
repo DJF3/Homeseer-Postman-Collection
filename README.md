@@ -38,3 +38,5 @@ Speak   | location2      | by controluse   | Events
 # Notes
 
 - I have not tested this with a remote HS server (through myhs.homeseer.com) 
+
+More info may be added here: https://www.domoticaworld.com/scripts/postman-colletion-for-homeseer/
