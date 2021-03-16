@@ -4,7 +4,9 @@ Postman collection for the Homeseer 4 (JSON) API
 Tested with: Homeseer 4.1.10.0 (Windows)
 From: https://docs.homeseer.com/display/HSPI/JSON+API
 
-IMAGE_HERE
+
+![postman screenshot](/_images/HOMESEER.postman_collection.png)
+
 
 
 # Setup
