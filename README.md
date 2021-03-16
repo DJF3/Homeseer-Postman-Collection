@@ -13,7 +13,7 @@ From: https://docs.homeseer.com/display/HSPI/JSON+API
 
 1. Get Postman: [here](https://www.postman.com/)
 2. Import collection 
-    1. Copy collection link: 
+    1. Copy collection link: https://raw.githubusercontent.com/DJF3/Homeseer-Postman-Collection/main/HOMESEER.postman_collection.json
     2. In Postman, click "environments" and the "import" button
     3. Click the "Link" tab
     4. Paste the link from step 1
