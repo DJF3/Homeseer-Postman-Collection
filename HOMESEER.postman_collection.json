@@ -1,0 +1,975 @@
+{
+	"info": {
+		"_postman_id": "29d509c4-d3bb-4eef-8b7b-b38aaa6a511c",
+		"name": "HOMESEER",
+		"description": "Postman Collection for Homeseer.\n\nCREATE an environment with variable \"hsserver\"\nVALUE: http://ipaddress\n\nTESTED with Homeseer 4.1.10.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SYSTEM",
+			"item": [
+				{
+					"name": "HS version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=hsversion",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "hsversion"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/hsversion\n\n/JSON?request=hsversion\n\nReturns the HomeSeer application version"
+					},
+					"response": []
+				},
+				{
+					"name": "HS device count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getdeviceinfo",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getdeviceinfo"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getdeviceinfo\n\n/JSON?request=getdeviceinfo\n\nReturns some device information such as the total number of devices in the system, the last time a device was added and the last time a device was removed. This information is helpful for UI applications that need to know if they should update their device list."
+					},
+					"response": []
+				},
+				{
+					"name": "Get session config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/json?request=getsessionconfig",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"json"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getsessionconfig"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getsessionconfig\n\nReturns JSON that gives some information about the current connection such as the HS version, location settings and labels, the logged in user name and user permissions. The permissions are set in HS3 setup on the network tab. uiser_permissions is a bit mask defined as follows:"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Systems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://myhs.homeseer.com/getsystems?user=XXXXX&pass=XXXXX",
+							"protocol": "https",
+							"host": [
+								"myhs",
+								"homeseer",
+								"com"
+							],
+							"path": [
+								"getsystems"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "XXXXX"
+								},
+								{
+									"key": "pass",
+									"value": "XXXXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getsystems\nReturns JSON that describes all the systems that the user has access to. Only the systems that are online are returned. If the user has a premium subscription then multiple systems could be returned, otherwise only a single system is returned.\n\nThe \"hslocalip\" is the IP address of the system HS is running on. The \"hswanip\" is the WAN IP that HS detects and the \"detected_wan_ip\" is the WAN ip that the MyHS service detects. If these match, this means the user is on the same network as the HS system and your app can connect using the \"hslocalip\" rather than use the MyHS service. The \"HasSubscription\" property reports if the user has a MyHS subscription. The \"tunnelip\" parameter is the MyHS server that the HS system is connected to. In order to get access to the system described you MUST use the correct tunnel address. HomeSeer will be implementing redundant MyHS servers so it is critical that the correct server is used when issuing MyHS commands. An alternative to using GetSystems is to use the URL:\n\nhttps://myhs.homeseer.com/json?request=###&user=USER&pass=PASS\n\nThis request will automatically direct the request to the correct server."
+					},
+					"response": []
+				},
+				{
+					"name": "Speak",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/json?request=speak&phrase=XXXXX&host=HOST:NAME",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"json"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "speak"
+								},
+								{
+									"key": "phrase",
+									"value": "XXXXX"
+								},
+								{
+									"key": "host",
+									"value": "HOST:NAME"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/speak\n\n/JSON?request=speak&phrase=text&host=HOST:NAME\n\nSpeaks the given phrase using text-to-speech.\n\nphrase = the phrase to speak\nhost = the speaker host to speak out of. HomeSeer supports multiple hosts, like PC's and mobile devices. Each device is assgined a unique host:name ID. For example, a host on the PC named \"hometroller\" with the name \"Android\" would have the host name: HomeTroller:Android. If this is added to the host parameter, then the phrase will be spoken out that host only. Many hosts can be added and are separated by a comma, IE: host=HomeTroller:Android,iPhone:bill"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "STATUS",
+			"item": [
+				{
+					"name": "Status - ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getstatus",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getstatus"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getstatus\n\nReturns the status of a device in the system or all the devices in the following format. The following parameters are supported in order to filter the response:\n\nuser=used to check if a device is controllable by the given user\npass=used with \"user\"\n\nlocation1=loc1  (only return the devices that are in the specific location1, omit or set to \"all\" for all devices at this location)\nlocation2=loc2  (only return the devices that are in the specific location2, omit or set to \"all\" for all devices at this location)\nref=##  (only return the device that matches the specific reference #, this may be a list of reference #'s like 3467,2342,869, omit or set to \"all\" to return all devices)\n\ncompress=true (omit values that are not set, greatly reduces the amount of data returned)\n\ncompress=false (default setting, the FULL JSON is returned, even empty values)\n\neverything=true (returns status as well as control information for the requested devices)\n\nNOTE: everything supports the following queries only:\n\nref=list of comma seperated device refs\n\nvoiceonly\n\nuser\n\npass\n\nexcludeevents=true to exclude all the events in the output\n\neverything=false (default setting, returns only status information)\n\nvoiceonly=true (only returns devices marked as voice commands)\n\nvoiceonly=false (default setting, returns all requested devices, ignores voice setting)"
+					},
+					"response": []
+				},
+				{
+					"name": "Status - ALL detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getstatus&everything=True&excludeevents=true",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getstatus"
+								},
+								{
+									"key": "everything",
+									"value": "True"
+								},
+								{
+									"key": "excludeevents",
+									"value": "true"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getstatus\n\nReturns the status of a device in the system or all the devices in the following format. The following parameters are supported in order to filter the response:\n\nuser=used to check if a device is controllable by the given user\npass=used with \"user\"\n\nlocation1=loc1  (only return the devices that are in the specific location1, omit or set to \"all\" for all devices at this location)\nlocation2=loc2  (only return the devices that are in the specific location2, omit or set to \"all\" for all devices at this location)\nref=##  (only return the device that matches the specific reference #, this may be a list of reference #'s like 3467,2342,869, omit or set to \"all\" to return all devices)\n\ncompress=true (omit values that are not set, greatly reduces the amount of data returned)\n\ncompress=false (default setting, the FULL JSON is returned, even empty values)\n\neverything=true (returns status as well as control information for the requested devices)\n\nNOTE: everything supports the following queries only:\n\nref=list of comma seperated device refs\n\nvoiceonly\n\nuser\n\npass\n\nexcludeevents=true to exclude all the events in the output\n\neverything=false (default setting, returns only status information)\n\nvoiceonly=true (only returns devices marked as voice commands)\n\nvoiceonly=false (default setting, returns all requested devices, ignores voice setting)"
+					},
+					"response": []
+				},
+				{
+					"name": "Status - Location1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getstatus&location1=XXXXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getstatus"
+								},
+								{
+									"key": "location1",
+									"value": "XXXXXX"
+								}
+							]
+						},
+						"description": "details: https://docs.homeseer.com/display/HSPI/getstatus"
+					},
+					"response": []
+				},
+				{
+					"name": "Status - Location2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getstatus&location2=Camera",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getstatus"
+								},
+								{
+									"key": "location2",
+									"value": "Camera"
+								}
+							]
+						},
+						"description": "Details: https://docs.homeseer.com/display/HSPI/getstatus"
+					},
+					"response": []
+				},
+				{
+					"name": "Status - Device (ref)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getstatus&ref=XXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getstatus"
+								},
+								{
+									"key": "ref",
+									"value": "XXXX"
+								}
+							]
+						},
+						"description": "Details: https://docs.homeseer.com/display/HSPI/getstatus"
+					},
+					"response": []
+				},
+				{
+					"name": "Status - Devices Changed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getdeviceschanged",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getdeviceschanged"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getdeviceschanged\n/JSON?request=getdeviceschanged&devicechangeid=ID\n\nReturns a list of devices (device ref) that have changed since the last call to this function. The ID is used to isolate the list of devices in the case other systems are making this call. The ID should be the same for all calls from a specific system. The ID is typically a GUID.\n\nExample return:\n\n{\"refs\":[2066,2121,2137,2153]}\n\n\nThis call is typically used for UI apps that poll HomeSeer for updates and want to update only the devices that have changed. Getting the status for all devices can by time consuming and resource intensive."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CONTROL",
+			"item": [
+				{
+					"name": "Control - by label",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=controldevicebylabel&ref=0000&label=00%",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "controldevicebylabel"
+								},
+								{
+									"key": "ref",
+									"value": "0000"
+								},
+								{
+									"key": "label",
+									"value": "00%"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/controldevicebylabel\n\n/JSON?request=controldevicebylabel&ref=###&label=label\n\n**Control a device by label, this is the label as returned by the \"getcontrol\" parameter.** \n\nFor example, if the device has a label \"On\" to turn a device on, the following URL would turn it on:\n\n/JSON?request=controldevicebylabel&ref=3570&label=On\n\nThe return is the current JSON formatted status of the device (same return as \"getstatus\"), or the string \"error\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Control - by value",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=controldevicebyvalue&ref=00000&value=00000",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "controldevicebyvalue"
+								},
+								{
+									"key": "ref",
+									"value": "00000"
+								},
+								{
+									"key": "value",
+									"value": "00000"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/controldevicebyvalue\n\n\n/JSON?request=controldevicebyvalue&ref=###&value=#\n\nControl a device given the device's reference number \"ref\", and value \"value\". For example, if a light has a value of 0 for off, the following would turn off the device with reference # 3570:\n\n/JSON?request=controldevicebyvalue&ref=3570&value=0\n\nThe return is the current JSON formatted status of the device (same return as \"getstatus\"), or the string \"error\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Control - by index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=controldevicebyindex&ref=00000&value=00000&string=XXXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "controldevicebyindex"
+								},
+								{
+									"key": "ref",
+									"value": "00000"
+								},
+								{
+									"key": "value",
+									"value": "00000"
+								},
+								{
+									"key": "string",
+									"value": "XXXXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/controldevicebyindex\n\n\n/JSON?request=controldevicebyindex&ref=###&value=#&string=##&source=###\n\nUses the control pair index to control a device."
+					},
+					"response": []
+				},
+				{
+					"name": "Control - by controluse",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=controldevicebycontroluse&ref=00000&controluse=000&value=00&string=XXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "controldevicebycontroluse"
+								},
+								{
+									"key": "ref",
+									"value": "00000"
+								},
+								{
+									"key": "controluse",
+									"value": "000"
+								},
+								{
+									"key": "value",
+									"value": "00"
+								},
+								{
+									"key": "string",
+									"value": "XXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/controldevicebycontroluse\n\nJSON?request=controldevicebycontroluse&ref=REFNUM&controluse=#&value=value&string=string\n\nEXAMPLE:\nrequest=controldevicebycontroluse&ref=1004&controluse=3&value=80\n- device (ref) 1004\n- Controluse = 3 (\"Dim\" - see below)\n- Value = 80  (80%)\nNOTE: device 1004 is the MAIN device, not the specific feature device that has the \"on/off/dim\" controls!\n\n\n\nGive a device ref (or list of comma separated refs), the features of the device are scanned to find the feature that has the given control use value set on its control pairs. If found, that pair is used to control the device.\n\nvalue is used when the control use accepts a value such as DIM.\n\nstring is used for setting a color.\n\nControl Use values:\nPublic Enum ePairControlUse\n        Not_Specified = 0\n        _On = 1\n        _Off = 2\n        _Dim = 3\n        _On_Alternate = 4\n        _Play = 5\n        _Pause = 6\n        _Stop = 7\n        _Forward = 8\n        _Rewind = 9\n        _Repeat = 10\n        _Shuffle = 11\n        _HeatSetPoint = 12\n        _CoolSetPoint = 13\n        _ThermModeOff = 14\n        _ThermModeHeat = 15\n        _ThermModeCool = 16\n        _ThermModeAuto = 17\n        _DoorLock = 18\n        _DoorUnLock = 19\n        _ThermFanAuto = 20\n        _ThermFanOn = 21\n        _ColorControl = 22\n        _DimFan = 23\n        _MotionActive = 24\n        _MotionInActive = 25\n        _ContactActive = 26\n        _ContactInActive = 27\n        _Mute = 28\n        _UnMute = 29\n        _MuteToggle = 30\n        _Next = 31\n        _Previous = 32\n        _Volume = 33\n    End Enum"
+					},
+					"response": []
+				},
+				{
+					"name": "Set Device - property",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=setdeviceproperty&property=XXXXX&value=XXXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "setdeviceproperty"
+								},
+								{
+									"key": "property",
+									"value": "XXXXX"
+								},
+								{
+									"key": "value",
+									"value": "XXXXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/setdeviceproperty\n\n/JSON?request=setdeviceproperty&property=NAME&value=VALUE\n\nSets a specific property on a device using the property name. For example, the \"Name\" of a device may be set using:\n\n\n/JSON?request=setdeviceproperty&property=Name&value=NewName\n\n\nSee the device section in the scripting reference in the HS4 user documentation for a list of device properties."
+					},
+					"response": []
+				},
+				{
+					"name": "Set Status - Value",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=setdevicestatus&ref=00000&value=00000",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "setdevicestatus"
+								},
+								{
+									"key": "ref",
+									"value": "00000"
+								},
+								{
+									"key": "value",
+									"value": "00000"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/setdevicestatus\n\n/JSON?request=setdevicestatus&value=VALUE&string=STRING&source=SOURCE\n\nSets the status of a device, either the value, the display string, or both. The \"source\" parameter is used for logging to display the source of the call.\n\nIf successful it returns:\n\n{ \"Response\":\"ok\" }\n\nIf there is an error, the \"Response\" will contain an error string."
+					},
+					"response": []
+				},
+				{
+					"name": "Set Status - String",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=setdevicestatus&ref=00000&string=XXXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "setdevicestatus"
+								},
+								{
+									"key": "ref",
+									"value": "00000"
+								},
+								{
+									"key": "string",
+									"value": "XXXXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/setdevicestatus\n\n/JSON?request=setdevicestatus&value=VALUE&string=STRING&source=SOURCE\n\nSets the status of a device, either the value, the display string, or both. The \"source\" parameter is used for logging to display the source of the call.\n\nIf successful it returns:\n\n{ \"Response\":\"ok\" }\n\nIf there is an error, the \"Response\" will contain an error string."
+					},
+					"response": []
+				},
+				{
+					"name": "RUN Event - name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=runevent&name=XXXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "runevent"
+								},
+								{
+									"key": "name",
+									"value": "XXXXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/runevent\n\n\n/JSON?request=runevent&group=GROUPNAME&name=EVENTNAME\nOR\n/JSON?request=runevent&id=EVENT_ID\n\nThis command will execute the actions of an event. Pass the group name and event name. The group and name are not case sensitive. An event may also be run using the event ID."
+					},
+					"response": []
+				},
+				{
+					"name": "RUN Event - group/name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=runevent&group=XXXXX&name=XXXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "runevent"
+								},
+								{
+									"key": "group",
+									"value": "XXXXX"
+								},
+								{
+									"key": "name",
+									"value": "XXXXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/runevent\n\n\n/JSON?request=runevent&group=GROUPNAME&name=EVENTNAME\nOR\n/JSON?request=runevent&id=EVENT_ID\n\nThis command will execute the actions of an event. Pass the group name and event name. The group and name are not case sensitive. An event may also be run using the event ID."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Get Locations ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getlocations",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getlocations"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getlocations\n\n/JSON?request=getlocations\n\nReturns all the location names for location 1 and location 2"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Categories ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getcategories",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getcategories"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getcategories\n\n/JSON?request=getcategories\n\nReturns a list of all available categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Counters ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getcounter",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getcounter"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getcounter\n\nJSON?request=getcounter&counter=NAME\n\nReturns the value for the given named counter"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getevents",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getevents"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getevents\n\nJSON?request=getevents\n\nReturns the names of all events in the system. An event is an action to be performed such as controlling a light, a sequence of lights, a thermostat, etc. Events have two properties, a group name and an event name. This command returns the group name and event name for all events. These two pieces of information are used to control an event.\n\nSample Response:\n{\n    \"Name\": \"HomeSeer Events\",\n    \"Version\": \"1.0\",\n    \"Events\": [\n        {\n            \"Group\": \"Lighting\",\n            \"Name\": \"Outside Lights Off\"\n        }\n    ]\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Setting",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getsetting&setting=XXXXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getsetting"
+								},
+								{
+									"key": "setting",
+									"value": "XXXXXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getsetting\n\n\n/JSON?request=getsetting&setting=SETTING_NAME\n\nReturns the value for a specific settting. For example, the setting for the name of location 1 is called \"gLocLabel\". To get the name of this label use:\n\n/JSON?request=getsetting&setting=gLocLabel\n\nThe return might be:\n\n{\n    \"Value\": \"Room\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Counter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getcounter&counter=XXXXX",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getcounter"
+								},
+								{
+									"key": "counter",
+									"value": "XXXXX"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getcounter\n\nJSON?request=getcounter&counter=NAME\n\nReturns the value for the given named counter"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Controls",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getcontrol&ref=00000",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getcontrol"
+								},
+								{
+									"key": "ref",
+									"value": "00000"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getcontrol\n\n/JSON?request=getcontrol&ref=##,##\n\nReturns control information for a device in the system, or all devices. Devices contain \"control pairs\", one pair for each possible control value. For example, a light that can be turned on and off would contain 2 control pairs, one for ON and one for OFF. The control pair describes how to control the device. The most important information is the \"Label\" and the \"ControlValue\", as those will be needed when the device is to be controlled. The information from this call can be used to build a user interface that will control the device.\n\nParameters:\n\nref=### (where ### is the device reference #, a list reference #'s, or \"all\" to return control information for all devices)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PLUGINS",
+			"item": [
+				{
+					"name": "List (other plugin functions not added here)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=pluginlist",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "pluginlist"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/pluginlist\nJSON?request=pluginlist\n\nReturns a list of plugins that have been install in the system. Gives the current version, the name, and if an update is available."
+					},
+					"response": []
+				}
+			],
+			"description": "Plugin API calls have not been added (yet) to this Postman collection\n\nMissing:\n- updateplugin\n- pluginfunction"
+		},
+		{
+			"name": "CAMERAS",
+			"item": [
+				{
+					"name": "List  (other plugin functions not added here)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{hsserver}}/JSON?request=getcameras",
+							"host": [
+								"{{hsserver}}"
+							],
+							"path": [
+								"JSON"
+							],
+							"query": [
+								{
+									"key": "request",
+									"value": "getcameras"
+								}
+							]
+						},
+						"description": "https://docs.homeseer.com/display/HSPI/getcameras\n\n/JSON?request=getcameras\n\nReturns all cameras configured in the system."
+					},
+					"response": []
+				}
+			],
+			"description": "Camera API calls have not been added (yet) to this Postman collection\n\nMissing:\n- pancamera\n- getcamerasnapshot\n- removecamera\n- getimage"
+		}
+	]
+}
